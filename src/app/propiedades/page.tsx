@@ -4,6 +4,7 @@ import { PropertyCard } from '@/features/properties/components/PropertyCard'
 import { PropertyFilters } from '@/features/properties/components/PropertyFilters'
 import { getProperties } from '@/features/properties/services/properties.service'
 import { Suspense } from 'react'
+import { motion } from 'framer-motion'
 import type { PropertyFilters as Filters } from '@/features/properties/types'
 
 export const dynamic = 'force-dynamic'
