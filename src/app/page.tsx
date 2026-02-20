@@ -9,35 +9,35 @@ export default function Home() {
   const properties = [
     {
       id: 1,
-      title: 'Villa de Lujo en Punta Cana',
-      price: '$850,000',
-      location: 'Punta Cana, La Altagracia',
-      beds: 5,
-      baths: 6,
-      area: '650 m²',
-      image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=1600&auto=format&fit=crop',
+      title: 'Majestic Oceanfront Villa',
+      price: '$1,250,000',
+      location: 'Cap Cana, La Altagracia',
+      beds: 6,
+      baths: 7,
+      area: '820 m²',
+      image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1600&auto=format&fit=crop',
       type: 'Venta'
     },
     {
       id: 2,
-      title: 'Apartamento Moderno en Piantini',
-      price: '$285,000',
+      title: 'Skyline Luxury Penthouse',
+      price: '$585,000',
       location: 'Piantini, Santo Domingo',
       beds: 3,
       baths: 3.5,
-      area: '185 m²',
-      image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=1600&auto=format&fit=crop',
+      area: '245 m²',
+      image: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?q=80&w=1600&auto=format&fit=crop',
       type: 'Venta'
     },
     {
       id: 3,
-      title: 'Penthouse Exclusivo',
-      price: '$3,500/mes',
-      location: 'Bella Vista, Santo Domingo',
-      beds: 4,
-      baths: 4,
-      area: '320 m²',
-      image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1600&auto=format&fit=crop',
+      title: 'Modern Tropical Estate',
+      price: '$4,500/mes',
+      location: 'Casa de Campo, La Romana',
+      beds: 5,
+      baths: 5,
+      area: '540 m²',
+      image: 'https://images.unsplash.com/photo-1567496898731-f39b218a09b7?q=80&w=1600&auto=format&fit=crop',
       type: 'Alquiler'
     },
   ]
@@ -48,13 +48,13 @@ export default function Home() {
       <section className="relative min-h-[700px] flex items-center justify-center overflow-hidden bg-slate-900">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1600596542815-2250657a2e7c?q=80&w=2000&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2000&auto=format&fit=crop"
             alt="Hero Background"
             fill
-            className="object-cover brightness-[0.4] scale-105"
+            className="object-cover brightness-[0.45] scale-100 transition-transform duration-[10s] ease-linear hover:scale-110"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-transparent to-slate-950/80" />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-transparent to-slate-950" />
         </div>
 
         <div className="relative z-10 container mx-auto px-4 text-center text-white space-y-8">
@@ -63,12 +63,12 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-[1.1]">
-              Encuentra el Hogar <br />
-              <span className="text-blue-500">de tus Sueños</span>
+            <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-8 leading-[0.9]">
+              Tu Exclusivo <br />
+              <span className="text-blue-500">Legado Inmobiliario</span>
             </h1>
-            <p className="text-xl md:text-2xl text-slate-200 max-w-2xl mx-auto mb-12 font-light leading-relaxed">
-              Descubre las propiedades más exclusivas en República Dominicana con el respaldo de expertos inmobiliarios.
+            <p className="text-xl md:text-2xl text-slate-200 max-w-2xl mx-auto mb-14 font-light leading-relaxed">
+              Descubra un portafolio curado de piezas arquitectónicas únicas en los destinos más privilegiados del Caribe.
             </p>
 
             <div className="max-w-4xl mx-auto bg-white/10 backdrop-blur-xl p-5 rounded-[2.5rem] border border-white/20 shadow-2xl mt-8">
