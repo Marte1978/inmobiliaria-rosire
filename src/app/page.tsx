@@ -1,6 +1,9 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { Search, MapPin, Bed, Bath, Maximize, ArrowRight } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 export default function Home() {
   const properties = [
@@ -40,124 +43,148 @@ export default function Home() {
   ]
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen pt-16 md:pt-0">
       {/* Hero Section */}
-      <section className="relative h-[600px] flex items-center justify-center">
+      <section className="relative min-h-[700px] flex items-center justify-center overflow-hidden bg-slate-900">
         <div className="absolute inset-0 z-0">
           <Image
             src="https://images.unsplash.com/photo-1600596542815-2250657a2e7c?q=80&w=2000&auto=format&fit=crop"
             alt="Hero Background"
             fill
-            className="object-cover brightness-[0.6]"
+            className="object-cover brightness-[0.4] scale-105"
             priority
           />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-transparent to-slate-950/80" />
         </div>
 
-        <div className="relative z-10 container mx-auto px-4 text-center text-white space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight font-display">
-            Encuentra el Hogar de tus Sueños
-          </h1>
-          <p className="text-xl md:text-2xl text-slate-200 max-w-2xl mx-auto">
-            Descubre las propiedades más exclusivas en República Dominicana con el respaldo de expertos.
-          </p>
+        <div className="relative z-10 container mx-auto px-4 text-center text-white space-y-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-[1.1]">
+              Encuentra el Hogar <br />
+              <span className="text-blue-500">de tus Sueños</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-slate-200 max-w-2xl mx-auto mb-12 font-light leading-relaxed">
+              Descubre las propiedades más exclusivas en República Dominicana con el respaldo de expertos inmobiliarios.
+            </p>
 
-          <div className="max-w-4xl mx-auto bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 mt-8">
-            <div className="flex flex-col md:flex-row gap-4">
-              <div className="flex-1 relative">
-                <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 w-5 h-5" />
-                <input
-                  type="text"
-                  placeholder="Ubicación, ciudad o código postal..."
-                  className="w-full pl-12 pr-4 py-4 rounded-xl bg-white/90 text-slate-900 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
+            <div className="max-w-4xl mx-auto bg-white/10 backdrop-blur-xl p-5 rounded-[2.5rem] border border-white/20 shadow-2xl mt-8">
+              <div className="flex flex-col md:flex-row gap-4">
+                <div className="flex-1 relative">
+                  <MapPin className="absolute left-5 top-1/2 -translate-y-1/2 text-white/50 w-5 h-5" />
+                  <input
+                    type="text"
+                    placeholder="Ubicación, ciudad o zona..."
+                    className="w-full pl-14 pr-6 py-5 rounded-3xl bg-white text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-4 focus:ring-blue-500/20 transition-all shadow-xl text-lg"
+                  />
+                </div>
+                <div className="flex-[0.5]">
+                  <select className="w-full h-full px-6 py-5 rounded-3xl bg-white text-slate-900 focus:outline-none focus:ring-4 focus:ring-blue-500/20 appearance-none shadow-xl cursor-pointer text-lg">
+                    <option value="">Tipo Propiedad</option>
+                    <option value="casa">Casa</option>
+                    <option value="apartamento">Apartamento</option>
+                    <option value="terreno">Terreno</option>
+                  </select>
+                </div>
+                <button className="bg-blue-600 hover:bg-blue-700 text-white px-10 py-5 rounded-3xl font-bold transition-all shadow-lg hover:shadow-blue-600/40 flex items-center justify-center gap-3 active:scale-95 text-lg">
+                  <Search className="w-6 h-6" />
+                  <span>Buscar</span>
+                </button>
               </div>
-              <div className="flex-[0.5]">
-                <select className="w-full h-full px-4 rounded-xl bg-white/90 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none">
-                  <option value="">Tipo de Propiedad</option>
-                  <option value="casa">Casa</option>
-                  <option value="apartamento">Apartamento</option>
-                  <option value="terreno">Terreno</option>
-                </select>
-              </div>
-              <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold transition-all shadow-lg hover:shadow-blue-500/50 flex items-center justify-center gap-2">
-                <Search className="w-5 h-5" />
-                <span>Buscar</span>
-              </button>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Featured Properties */}
-      <section className="py-24 bg-slate-50">
+      {/* Featured Properties Section */}
+      <section className="py-24 bg-white relative overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="flex justify-between items-end mb-12">
-            <div>
-              <span className="text-blue-600 font-semibold tracking-wider text-sm uppercase">Destacadas</span>
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mt-2">Propiedades Recientes</h2>
+          <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 gap-6">
+            <div className="text-center md:text-left">
+              <motion.span
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                className="text-blue-600 font-bold tracking-widest text-sm uppercase"
+              >
+                Selección Exclusiva
+              </motion.span>
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mt-3">Propiedades Destacadas</h2>
             </div>
-            <Link href="/propiedades" className="hidden md:flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 hover:translate-x-1 transition-all">
-              Ver todas <ArrowRight size={20} />
+            <Link href="/propiedades" className="group flex items-center gap-3 text-slate-900 font-bold hover:text-blue-600 transition-all text-lg">
+              Explorar catálogo <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {properties.map((property) => (
-              <div key={property.id} className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1">
-                <div className="relative h-64 overflow-hidden">
-                  <Image
-                    src={property.image}
-                    alt={property.title}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute top-4 left-4 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider backdrop-blur-sm shadow-sm">
-                    {property.type}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {properties.map((property, idx) => (
+              <motion.div
+                key={property.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.1 }}
+              >
+                <div className="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-slate-100 hover:-translate-y-2">
+                  <div className="relative h-72 overflow-hidden">
+                    <Image
+                      src={property.image}
+                      alt={property.title}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                    <div className="absolute top-5 left-5 flex gap-2">
+                      <span className="bg-blue-600 text-white px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg">
+                        {property.type}
+                      </span>
+                    </div>
+                    <div className="absolute bottom-5 left-5 text-white drop-shadow-lg">
+                      <p className="text-sm font-medium text-white/80 uppercase tracking-widest mb-1">Precio</p>
+                      <p className="text-3xl font-black">{property.price}</p>
+                    </div>
                   </div>
-                  <div className="absolute bottom-4 left-4 text-white font-bold text-2xl drop-shadow-md">
-                    {property.price}
+
+                  <div className="p-8">
+                    <div className="flex items-start justify-between mb-6">
+                      <div>
+                        <h3 className="font-bold text-xl text-slate-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-1">{property.title}</h3>
+                        <p className="text-slate-500 text-sm flex items-center gap-2">
+                          <MapPin size={16} className="text-blue-500" /> {property.location}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-6 py-6 border-y border-slate-100 text-sm text-slate-600">
+                      <div className="flex items-center gap-2" title="Habitaciones">
+                        <Bed size={18} className="text-blue-500" />
+                        <span className="font-bold">{property.beds}</span>
+                      </div>
+                      <div className="flex items-center gap-2" title="Baños">
+                        <Bath size={18} className="text-blue-500" />
+                        <span className="font-bold">{property.baths}</span>
+                      </div>
+                      <div className="flex items-center gap-2" title="Área">
+                        <Maximize size={18} className="text-blue-500" />
+                        <span className="font-bold">{property.area}</span>
+                      </div>
+                    </div>
+
+                    <Link
+                      href={`/propiedades/${property.id}`}
+                      className="block w-full text-center py-4 mt-6 rounded-2xl bg-slate-50 text-slate-900 font-bold hover:bg-slate-900 hover:text-white transition-all transform active:scale-95"
+                    >
+                      Ver Detalles
+                    </Link>
                   </div>
                 </div>
-
-                <div className="p-6">
-                  <div className="flex items-start justify-between mb-4">
-                    <div>
-                      <h3 className="font-bold text-lg text-slate-900 mb-1 group-hover:text-blue-600 transition-colors line-clamp-1">{property.title}</h3>
-                      <p className="text-slate-500 text-sm flex items-center gap-1">
-                        <MapPin size={14} /> {property.location}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-4 py-4 border-t border-gray-100 text-sm text-slate-600">
-                    <div className="flex items-center gap-1.5" title="Habitaciones">
-                      <Bed size={16} className="text-blue-500" />
-                      <span className="font-medium">{property.beds}</span>
-                    </div>
-                    <div className="flex items-center gap-1.5" title="Baños">
-                      <Bath size={16} className="text-blue-500" />
-                      <span className="font-medium">{property.baths}</span>
-                    </div>
-                    <div className="flex items-center gap-1.5" title="Área">
-                      <Maximize size={16} className="text-blue-500" />
-                      <span className="font-medium">{property.area}</span>
-                    </div>
-                  </div>
-
-                  <Link
-                    href={`/propiedades/${property.id}`}
-                    className="block w-full text-center py-3 mt-2 rounded-xl bg-slate-50 text-slate-900 font-semibold hover:bg-slate-900 hover:text-white transition-colors"
-                  >
-                    Ver Detalles
-                  </Link>
-                </div>
-              </div>
+              </motion.div>
             ))}
           </div>
 
-          <div className="mt-12 text-center md:hidden">
-            <Link href="/propiedades" className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700">
-              Ver todas las propiedades <ArrowRight size={20} />
+          <div className="mt-16 text-center md:hidden">
+            <Link href="/propiedades" className="inline-flex items-center gap-3 text-blue-600 font-bold hover:text-blue-700 text-lg">
+              Ver catálogo completo <ArrowRight size={24} />
             </Link>
           </div>
         </div>

@@ -29,21 +29,28 @@ export default async function PropiedadesPage({ searchParams }: PageProps) {
     const properties = await getProperties(filters)
 
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen pt-16 md:pt-0">
             {/* Header Banner */}
-            <section className="relative h-56 flex items-end pb-10 pt-20">
+            <section className="relative h-64 flex items-center justify-center bg-slate-900 overflow-hidden">
                 <div className="absolute inset-0 z-0">
                     <Image
-                        src="https://images.unsplash.com/photo-1600596542815-2250657a2e7c?q=80&w=2000&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1600582874248-1117f8582499?q=80&w=2000&auto=format&fit=crop"
                         alt="Propiedades"
                         fill
-                        className="object-cover brightness-50"
+                        className="object-cover brightness-[0.4]"
                         priority
                     />
+                    <div className="absolute inset-0 bg-blue-900/20" />
                 </div>
-                <div className="relative z-10 container mx-auto px-4">
-                    <p className="text-blue-400 text-sm font-semibold uppercase tracking-widest mb-2">Nuestro Catálogo</p>
-                    <h1 className="text-4xl md:text-5xl font-bold text-white">Propiedades</h1>
+                <div className="relative z-10 container mx-auto px-4 text-center">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        <p className="text-blue-400 text-sm font-bold uppercase tracking-[0.2em] mb-3">Descubre Tu Próximo Destino</p>
+                        <h1 className="text-4xl md:text-6xl font-black text-white">Nuestro Catálogo</h1>
+                    </motion.div>
                 </div>
             </section>
 

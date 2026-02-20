@@ -10,10 +10,30 @@
  */
 
 // ==============================
-// CONFIGURA ESTAS VARIABLES
+// CARGAR VARIABLES DE .ENV.LOCAL
 // ==============================
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://almacenamiento-supabase.lnr2f0.easypanel.host'
-const SERVICE_ROLE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJzZXJ2aWNlX3JvbGUiLAogICAgImlzcyI6ICJzdXBhYmFzZS1kZW1vIiwKICAgICJpYXQiOiAxNjQxNzY5MjAwLAogICAgImV4cCI6IDE3OTk1MzU2MDAKfQ.DaYlNEoUrrEn2Ig7tqibS-PHK5vgusbcbo7X36XVt4Q'
+import fs from 'fs'
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const envPath = path.resolve(__dirname, '../.env.local')
+
+if (fs.existsSync(envPath)) {
+    const envFile = fs.readFileSync(envPath, 'utf8')
+    envFile.split('\n').forEach(line => {
+        const [key, value] = line.split('=')
+        if (key && value) process.env[key.trim()] = value.trim()
+    })
+}
+
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
+const SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
+
+if (!SUPABASE_URL || !SERVICE_ROLE_KEY) {
+    console.error('❌ Error: Faltan variables en .env.local (NEXT_PUBLIC_SUPABASE_URL o SUPABASE_SERVICE_ROLE_KEY)')
+    process.exit(1)
+}
 
 const headers = {
     'apikey': SERVICE_ROLE_KEY,
