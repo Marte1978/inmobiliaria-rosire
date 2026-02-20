@@ -48,7 +48,7 @@ export default function Home() {
       <section className="relative min-h-[700px] flex items-center justify-center overflow-hidden bg-slate-900">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2000&auto=format&fit=crop"
+            src="https://gitlab.com/willymartetirado/inmobiliaria_rosire/-/raw/master/4812-5-estrategias-de-marketing-inmobiliario.jpg"
             alt="Hero Background"
             fill
             className="object-cover brightness-[0.45] scale-100 transition-transform duration-[10s] ease-linear hover:scale-110"
