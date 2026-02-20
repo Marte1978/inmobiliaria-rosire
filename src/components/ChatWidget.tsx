@@ -5,7 +5,7 @@ import { MessageCircle, X, Send } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
-const WEBHOOK_URL = 'https://automatizacion-n8n.lnr2f0.easypanel.host/webhook/aneurys2'
+const WEBHOOK_URL = '/api/chat' // Proxy route — evita CORS
 const WHATSAPP_LINK = 'https://wa.me/18096860000' // Ajusta el número de WhatsApp
 
 interface ChatMessage {
