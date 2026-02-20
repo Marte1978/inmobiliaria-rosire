@@ -1,0 +1,39 @@
+# GitLab CI/CD for Next.js (Inmobiliaria Rosire)
+
+stages:
+  - build
+  - deploy
+
+variables:
+  # Supabase ENV vars should be set in GitLab Settings > CI/CD > Variables
+  NEXT_PUBLIC_SUPABASE_URL: $NEXT_PUBLIC_SUPABASE_URL
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: $NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+cache:
+  paths:
+    - .next/cache/
+    - node_modules/
+
+build:
+  stage: build
+  image: node:18-alpine
+  script:
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - .next/
+      - public/
+      - package.json
+      - next.config.ts
+    expire_in: 1 week
+  only:
+    - master
+
+# Example deployment stage (To be customized once user provides target)
+# deploy_production:
+#   stage: deploy
+#   script:
+#     - echo "Deploying to production server..."
+#   only:
+#     - master
