@@ -15,16 +15,34 @@ interface ChatMessage {
     timestamp: Date
 }
 
-function extractMessageFromResponse(data: Record<string, unknown>): string | null {
-    if (typeof data === 'string') return data
-    if (data.output && typeof data.output === 'string') return data.output
-    if (data.text && typeof data.text === 'string') return data.text
-    if (data.message && typeof data.message === 'string') return data.message
-    if (data.response && typeof data.response === 'string') return data.response
+// 🔍 Detección exhaustiva: busca en 8 campos diferentes
+const RESPONSE_FIELDS = ['recommendations', 'text', 'output', 'message', 'response', 'result', 'data', 'content'] as const
+
+function extractMessageFromResponse(data: unknown): string | null {
+    // Si es string directo
+    if (typeof data === 'string' && data.trim().length > 0) return data.trim()
+
+    // Si es un array, buscar en el primer elemento
     if (Array.isArray(data) && data.length > 0) {
-        const first = data[0] as Record<string, unknown>
-        return (first.output || first.text || first.message || first.response) as string | null
+        return extractMessageFromResponse(data[0])
     }
+
+    // Si es un objeto, buscar en los 8 campos
+    if (typeof data === 'object' && data !== null) {
+        const obj = data as Record<string, unknown>
+        for (const field of RESPONSE_FIELDS) {
+            const value = obj[field]
+            if (typeof value === 'string' && value.trim().length > 0) {
+                return value.trim()
+            }
+            // Si el campo es un objeto/array, buscar recursivamente
+            if (typeof value === 'object' && value !== null) {
+                const nested = extractMessageFromResponse(value)
+                if (nested) return nested
+            }
+        }
+    }
+
     return null
 }
 
