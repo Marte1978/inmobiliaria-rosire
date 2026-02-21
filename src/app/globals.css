@@ -3,8 +3,46 @@
 @theme {
   --font-inter: var(--font-inter);
   --font-outfit: var(--font-outfit);
+  --animate-fadeInUp: fadeInUp 0.6s ease-out both;
+  --animate-fadeInLeft: fadeInLeft 0.5s ease-out both;
 }
 
 :root {
-  /* ... */
+  --color-background: #ffffff;
+  --color-foreground: #0f172a;
+}
+
+/* Custom animations for page transitions */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Better image rendering */
+img {
+  image-rendering: auto;
 }

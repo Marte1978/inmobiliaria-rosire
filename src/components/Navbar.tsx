@@ -1,9 +1,8 @@
 'use client'
 
-import React, { useState } from 'react'
+import React from 'react'
 import Link from 'next/link'
-import { Menu, X, Home, User, LogIn } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { Menu, X, Home } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export default function Navbar() {
@@ -97,47 +96,43 @@ export default function Navbar() {
                 </button>
             </div>
 
-            {/* Mobile Menu */}
-            <AnimatePresence>
-                {mobileMenuOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="md:hidden bg-white border-t border-gray-100 overflow-hidden"
-                    >
-                        <div className="container mx-auto px-4 py-4 space-y-4">
-                            {navLinks.map((link) => (
-                                <Link
-                                    key={link.name}
-                                    href={link.href}
-                                    onClick={() => setMobileMenuOpen(false)}
-                                    className="block text-slate-600 font-medium hover:text-blue-600"
-                                >
-                                    {link.name}
-                                </Link>
-                            ))}
-                            <hr className="border-gray-100" />
-                            <div className="flex flex-col gap-3">
-                                <Link
-                                    href="/auth/login"
-                                    onClick={() => setMobileMenuOpen(false)}
-                                    className="w-full text-center py-2.5 text-slate-600 font-medium border border-gray-200 rounded-xl hover:bg-gray-50"
-                                >
-                                    Iniciar Sesión
-                                </Link>
-                                <Link
-                                    href="/auth/register"
-                                    onClick={() => setMobileMenuOpen(false)}
-                                    className="w-full text-center py-2.5 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 shadow-md"
-                                >
-                                    Registrarse
-                                </Link>
-                            </div>
-                        </div>
-                    </motion.div>
+            {/* Mobile Menu - CSS transition instead of framer-motion */}
+            <div
+                className={cn(
+                    "md:hidden bg-white border-t border-gray-100 overflow-hidden transition-all duration-300 ease-in-out",
+                    mobileMenuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
                 )}
-            </AnimatePresence>
+            >
+                <div className="container mx-auto px-4 py-4 space-y-4">
+                    {navLinks.map((link) => (
+                        <Link
+                            key={link.name}
+                            href={link.href}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="block text-slate-600 font-medium hover:text-blue-600"
+                        >
+                            {link.name}
+                        </Link>
+                    ))}
+                    <hr className="border-gray-100" />
+                    <div className="flex flex-col gap-3">
+                        <Link
+                            href="/auth/login"
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="w-full text-center py-2.5 text-slate-600 font-medium border border-gray-200 rounded-xl hover:bg-gray-50"
+                        >
+                            Iniciar Sesión
+                        </Link>
+                        <Link
+                            href="/auth/register"
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="w-full text-center py-2.5 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 shadow-md"
+                        >
+                            Registrarse
+                        </Link>
+                    </div>
+                </div>
+            </div>
         </nav>
     )
 }

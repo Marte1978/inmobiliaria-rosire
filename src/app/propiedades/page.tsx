@@ -4,7 +4,6 @@ import { PropertyCard } from '@/features/properties/components/PropertyCard'
 import { PropertyFilters } from '@/features/properties/components/PropertyFilters'
 import { getProperties } from '@/features/properties/services/properties.service'
 import { Suspense } from 'react'
-import { motion } from 'framer-motion'
 import type { PropertyFilters as Filters } from '@/features/properties/types'
 
 export const dynamic = 'force-dynamic'
@@ -44,14 +43,10 @@ export default async function PropiedadesPage({ searchParams }: PageProps) {
                     <div className="absolute inset-0 bg-blue-900/20" />
                 </div>
                 <div className="relative z-10 container mx-auto px-4 text-center">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5 }}
-                    >
+                    <div className="animate-fadeInUp">
                         <p className="text-blue-400 text-sm font-bold uppercase tracking-[0.2em] mb-3">Descubre Tu Próximo Destino</p>
                         <h1 className="text-4xl md:text-6xl font-black text-white">Nuestro Catálogo</h1>
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 
@@ -85,8 +80,14 @@ export default async function PropiedadesPage({ searchParams }: PageProps) {
                         </div>
                     ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {properties.map((property) => (
-                                <PropertyCard key={property.id} property={property} />
+                            {properties.map((property, idx) => (
+                                <div
+                                    key={property.id}
+                                    className="animate-fadeInUp"
+                                    style={{ animationDelay: `${idx * 100}ms` }}
+                                >
+                                    <PropertyCard property={property} />
+                                </div>
                             ))}
                         </div>
                     )}
