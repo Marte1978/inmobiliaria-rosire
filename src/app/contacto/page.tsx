@@ -31,11 +31,20 @@ export default function ContactoPage() {
             setSent(true)
         } finally {
             setLoading(false)
+            // Redirect to WhatsApp with collected info
+            const waMessage = `Hola! 👋 Mi nombre es ${formData.name}.
+Interés: ${formData.interest}
+Email: ${formData.email}
+Tel: ${formData.phone || 'No provisto'}
+Mensaje: ${formData.message}`
+
+            const encodedMessage = encodeURIComponent(waMessage)
+            window.open(`https://wa.me/18099721828?text=${encodedMessage}`, '_blank')
         }
     }
 
     const contactInfo = [
-        { icon: Phone, label: 'Teléfono', value: '+1 (809) 555-0123', href: 'tel:+18095550123' },
+        { icon: Phone, label: 'Teléfono', value: '+1 (809) 972-1828', href: 'tel:+18099721828' },
         { icon: Mail, label: 'Correo', value: 'contacto@inmobiliariarosire.com', href: 'mailto:contacto@inmobiliariarosire.com' },
         { icon: MapPin, label: 'Oficina', value: 'Av. Principal 123, Santo Domingo', href: '#' },
     ]
@@ -85,7 +94,7 @@ export default function ContactoPage() {
                             </div>
 
                             <a
-                                href="https://wa.me/18095550123?text=Hola, quiero información sobre propiedades"
+                                href="https://wa.me/18099721828?text=Hola, quiero información sobre propiedades"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex items-center gap-3 w-full p-4 bg-green-600 text-white rounded-2xl font-semibold hover:bg-green-700 transition-colors shadow-lg hover:shadow-green-500/25 justify-center"

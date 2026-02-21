@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
 const WEBHOOK_URL = '/api/chat' // Proxy route — evita CORS
-const WHATSAPP_LINK = 'https://wa.me/18096860000' // WhatsApp de Rosire
+const WHATSAPP_LINK = 'https://wa.me/18099721828' // WhatsApp de Rosire
 
 interface ChatMessage {
     id: string
