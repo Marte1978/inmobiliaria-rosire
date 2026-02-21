@@ -20,11 +20,17 @@ export default function LoginForm() {
         setLoading(true)
         setError(null)
 
+        const cleanEmail = email.trim()
+
         try {
-            const { error } = await supabase.auth.signInWithPassword({ email, password })
+            const { error } = await supabase.auth.signInWithPassword({
+                email: cleanEmail,
+                password
+            })
             if (error) throw error
-            router.push('/dashboard')
+
             router.refresh()
+            router.push('/dashboard')
         } catch (err: unknown) {
             const message = err instanceof Error ? err.message : 'Error al iniciar sesión'
             // Friendly Spanish messages
