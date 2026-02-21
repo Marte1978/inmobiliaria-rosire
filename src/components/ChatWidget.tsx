@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
 const WEBHOOK_URL = '/api/chat' // Proxy route — evita CORS
-const WHATSAPP_LINK = 'https://wa.me/18096860000' // Ajusta el número de WhatsApp
+const WHATSAPP_LINK = 'https://wa.me/18096860000' // WhatsApp de Rosire
 
 interface ChatMessage {
     id: string
@@ -72,7 +72,7 @@ export default function ChatWidget() {
     const [msgs, setMsgs] = useState<ChatMessage[]>([
         {
             id: 'init',
-            text: '¡Hola! 👋 Soy el asistente virtual de Inmobiliaria Rosire. ¿En qué puedo ayudarte hoy?',
+            text: '¡Hola! 🏠 Soy el asistente virtual de Inmobiliaria Rosire. Te ayudo a encontrar la propiedad de tus sueños o a publicar la tuya. ¿En qué puedo ayudarte hoy?',
             sender: 'bot',
             timestamp: new Date()
         }

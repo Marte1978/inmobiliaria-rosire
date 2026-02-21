@@ -7,16 +7,16 @@ export async function POST(request: NextRequest) {
     try {
         const body = await request.json()
 
-        // 🧠 Get properties for context
-        const properties = await getProperties()
-        const propertiesContext = properties.map(p =>
+        // 🧠 Real Estate context injection
+        const rawProperties = await getProperties()
+        const inventoryContext = rawProperties.map(p =>
             `- ${p.title} en ${p.location}: ${p.price_label}, ${p.beds} habs, ${p.baths} baños. Tipo: ${p.type}.`
         ).join('\n')
 
-        // Include context in the payload for n8n/AI
         const payload = {
-            ...body,
-            systemContext: `Información de propiedades disponibles actualmente en Inmobiliaria Rosire:\n${propertiesContext}\n\nResponde siempre basándote en esta información si el usuario pregunta por propiedades.`
+            message: body.message,
+            sessionId: body.sessionId,
+            propertiesContext: `Inventario disponible:\n${inventoryContext}`
         }
 
         const webhookResponse = await fetch(WEBHOOK_URL, {
