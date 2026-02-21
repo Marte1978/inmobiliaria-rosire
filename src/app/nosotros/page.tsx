@@ -129,7 +129,7 @@ export default function NosotrosPage() {
                                 <Phone size={20} className="text-blue-600 shrink-0" />
                                 <div>
                                     <p className="font-semibold text-slate-900">Teléfono</p>
-                                    <a href="tel:+18095550100" className="text-blue-600 text-sm hover:underline">+1 (809) 555-0100</a>
+                                    <a href="tel:+18099721828" className="text-blue-600 text-sm hover:underline">+1 (809) 972-1828</a>
                                 </div>
                             </div>
                             <div className="flex items-center gap-4">
@@ -165,7 +165,7 @@ export default function NosotrosPage() {
                             Contáctanos
                         </Link>
                         <a
-                            href="https://wa.me/18095550100?text=Hola! Me gustaría obtener más información sobre sus propiedades."
+                            href="https://wa.me/18099721828?text=Hola! Me gustaría obtener más información sobre sus propiedades."
                             target="_blank"
                             rel="noopener noreferrer"
                             className="px-8 py-3.5 bg-green-500 text-white font-bold rounded-full hover:bg-green-600 transition-colors flex items-center gap-2"
