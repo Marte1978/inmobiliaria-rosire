@@ -1,6 +1,7 @@
 import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
-import { Home, Users, MessageSquare, TrendingUp, Bell, Calendar, ArrowRight, LogOut } from 'lucide-react'
+import { Home, Users, MessageSquare, TrendingUp, Bell, Calendar, ArrowRight, LogOut, Plus } from 'lucide-react'
+import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { getPropertiesCount } from '@/features/properties/services/properties.service'
 
@@ -146,6 +147,7 @@ export default async function DashboardPage() {
                         <h2 className="font-bold text-slate-900 mb-5">Accesos Rápidos</h2>
                         <div className="space-y-3">
                             {[
+                                { label: 'Publicar Propiedad', href: '/dashboard/propiedades/nueva', icon: Plus, primary: true },
                                 { label: 'Ver Propiedades', href: '/propiedades', icon: Home },
                                 { label: 'Ver Agentes', href: '/agentes', icon: Users },
                                 { label: 'Contacto & Leads', href: '/contacto', icon: MessageSquare },
@@ -153,9 +155,14 @@ export default async function DashboardPage() {
                                 <Link
                                     key={item.label}
                                     href={item.href}
-                                    className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 hover:bg-blue-50 hover:text-blue-600 transition-colors text-sm font-medium text-slate-700 group"
+                                    className={cn(
+                                        "flex items-center gap-3 p-3 rounded-xl transition-all text-sm font-medium group",
+                                        item.primary
+                                            ? "bg-blue-600 text-white hover:bg-blue-700 shadow-md hover:shadow-blue-500/20"
+                                            : "bg-slate-50 hover:bg-blue-50 hover:text-blue-600 text-slate-700"
+                                    )}
                                 >
-                                    <item.icon size={18} className="text-slate-400 group-hover:text-blue-500" />
+                                    <item.icon size={18} className={item.primary ? "text-blue-100" : "text-slate-400 group-hover:text-blue-500"} />
                                     {item.label}
                                     <ArrowRight size={14} className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
                                 </Link>

@@ -2,12 +2,26 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { Menu, X, Home } from 'lucide-react'
+import { Menu, X, Home, LogOut, LayoutDashboard } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { User } from '@supabase/supabase-js'
+import { createClient } from '@/utils/supabase/client'
+import { useRouter } from 'next/navigation'
 
-export default function Navbar() {
+export default function Navbar({ user }: { user: User | null }) {
     const [isScrolled, setIsScrolled] = React.useState(false)
     const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false)
+    const [isLoggingOut, setIsLoggingOut] = React.useState(false)
+    const router = useRouter()
+    const supabase = createClient()
+
+    const handleLogout = async () => {
+        setIsLoggingOut(true)
+        await supabase.auth.signOut()
+        setIsLoggingOut(false)
+        router.refresh()
+        router.push('/')
+    }
 
     React.useEffect(() => {
         const handleScroll = () => {
@@ -66,21 +80,46 @@ export default function Navbar() {
 
                 {/* Auth Buttons */}
                 <div className="hidden md:flex items-center gap-4">
-                    <Link
-                        href="/auth/login"
-                        className={cn(
-                            "text-sm font-medium transition-colors hover:text-blue-500",
-                            isScrolled ? "text-slate-600" : "text-white"
-                        )}
-                    >
-                        Iniciar Sesión
-                    </Link>
-                    <Link
-                        href="/auth/register"
-                        className="px-5 py-2.5 bg-blue-600 text-white text-sm font-medium rounded-full hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-500/25 active:scale-95"
-                    >
-                        Registrarse
-                    </Link>
+                    {user ? (
+                        <>
+                            <Link
+                                href="/dashboard"
+                                className={cn(
+                                    "flex items-center gap-2 text-sm font-medium transition-colors hover:text-blue-500",
+                                    isScrolled ? "text-slate-600" : "text-white"
+                                )}
+                            >
+                                <LayoutDashboard size={18} />
+                                Dashboard
+                            </Link>
+                            <button
+                                onClick={handleLogout}
+                                disabled={isLoggingOut}
+                                className="px-5 py-2.5 bg-slate-900 text-white text-sm font-medium rounded-full hover:bg-slate-800 transition-all shadow-lg active:scale-95 disabled:opacity-70 flex items-center gap-2"
+                            >
+                                <LogOut size={16} />
+                                {isLoggingOut ? 'Saliendo...' : 'Cerrar Sesión'}
+                            </button>
+                        </>
+                    ) : (
+                        <>
+                            <Link
+                                href="/auth/login"
+                                className={cn(
+                                    "text-sm font-medium transition-colors hover:text-blue-500",
+                                    isScrolled ? "text-slate-600" : "text-white"
+                                )}
+                            >
+                                Iniciar Sesión
+                            </Link>
+                            <Link
+                                href="/auth/register"
+                                className="px-5 py-2.5 bg-blue-600 text-white text-sm font-medium rounded-full hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-500/25 active:scale-95"
+                            >
+                                Registrarse
+                            </Link>
+                        </>
+                    )}
                 </div>
 
                 {/* Mobile Toggle */}
@@ -116,20 +155,46 @@ export default function Navbar() {
                     ))}
                     <hr className="border-gray-100" />
                     <div className="flex flex-col gap-3">
-                        <Link
-                            href="/auth/login"
-                            onClick={() => setMobileMenuOpen(false)}
-                            className="w-full text-center py-2.5 text-slate-600 font-medium border border-gray-200 rounded-xl hover:bg-gray-50"
-                        >
-                            Iniciar Sesión
-                        </Link>
-                        <Link
-                            href="/auth/register"
-                            onClick={() => setMobileMenuOpen(false)}
-                            className="w-full text-center py-2.5 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 shadow-md"
-                        >
-                            Registrarse
-                        </Link>
+                        {user ? (
+                            <>
+                                <Link
+                                    href="/dashboard"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    className="w-full flex items-center justify-center gap-2 py-2.5 text-slate-600 font-medium border border-gray-200 rounded-xl hover:bg-gray-50"
+                                >
+                                    <LayoutDashboard size={18} />
+                                    Dashboard
+                                </Link>
+                                <button
+                                    onClick={() => {
+                                        handleLogout();
+                                        setMobileMenuOpen(false);
+                                    }}
+                                    disabled={isLoggingOut}
+                                    className="w-full flex items-center justify-center gap-2 py-2.5 bg-slate-900 text-white font-medium rounded-xl hover:bg-slate-800 shadow-md disabled:opacity-70"
+                                >
+                                    <LogOut size={18} />
+                                    {isLoggingOut ? 'Saliendo...' : 'Cerrar Sesión'}
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <Link
+                                    href="/auth/login"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    className="w-full text-center py-2.5 text-slate-600 font-medium border border-gray-200 rounded-xl hover:bg-gray-50"
+                                >
+                                    Iniciar Sesión
+                                </Link>
+                                <Link
+                                    href="/auth/register"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    className="w-full text-center py-2.5 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 shadow-md"
+                                >
+                                    Registrarse
+                                </Link>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>

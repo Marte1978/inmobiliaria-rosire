@@ -67,3 +67,20 @@ export async function getPropertiesCount(): Promise<number> {
     if (error) return 0
     return count ?? 0
 }
+
+export async function createProperty(property: Omit<Property, 'id' | 'created_at'>): Promise<{ data: Property | null; error: string | null }> {
+    const supabase = await createClient()
+
+    const { data, error } = await supabase
+        .from('properties')
+        .insert([property])
+        .select()
+        .single()
+
+    if (error) {
+        console.error('Error creating property:', error.message)
+        return { data: null, error: error.message }
+    }
+
+    return { data: data as Property, error: null }
+}
